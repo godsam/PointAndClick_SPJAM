@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/Cena1.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/cama.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/quadro.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Corredor.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Porta.png" type="Texture" id=5]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19.8908, 373.694 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 29.6301, 374.819 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 37.3822, 62.1499 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 11.4991, 18.2544 )
+
+[node name="Cena1" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Cama" type="Sprite" parent="."]
+position = Vector2( 580.2, 390.427 )
+scale = Vector2( 1.13152, 1.02506 )
+texture = ExtResource( 2 )
+
+[node name="Area" type="Area2D" parent="Cama"]
+
+[node name="Collision" type="CollisionShape2D" parent="Cama/Area"]
+position = Vector2( 372.929, 5.17929 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 1 )
+
+[node name="Quadro" type="Sprite" parent="."]
+visible = false
+position = Vector2( 512.997, 390.427 )
+scale = Vector2( 1.00027, 1.02506 )
+texture = ExtResource( 3 )
+
+[node name="Area" type="Area2D" parent="Quadro"]
+
+[node name="Collision" type="CollisionShape2D" parent="Quadro/Area"]
+position = Vector2( -481.92, 3.78229 )
+shape = SubResource( 2 )
+
+[node name="Corredor" type="Sprite" parent="."]
+visible = false
+position = Vector2( 512.997, 390.427 )
+scale = Vector2( 1.00027, 1.02506 )
+texture = ExtResource( 4 )
+
+[node name="Area" type="Area2D" parent="Corredor"]
+
+[node name="Collision" type="CollisionShape2D" parent="Corredor/Area"]
+position = Vector2( -31.0083, -274.846 )
+shape = SubResource( 3 )
+
+[node name="Porta" type="Sprite" parent="."]
+visible = false
+position = Vector2( 572.445, 412.397 )
+scale = Vector2( 1.11638, 1.08288 )
+texture = ExtResource( 5 )
+
+[node name="Area" type="Area2D" parent="Porta"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Porta/Area"]
+position = Vector2( -210.689, 36.9969 )
+shape = SubResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( 303.973, 235.496 )
+
+[node name="What" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_top = 750.954
+margin_right = 1024.0
+margin_bottom = 781.954
+text = "TESTE
+"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Opcao" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 311.035
+margin_top = 228.368
+margin_right = 759.035
+margin_bottom = 526.368
+
+[node name="Label" type="Label" parent="Opcao"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.5847
+margin_top = -79.3719
+margin_right = 17.4153
+margin_bottom = -65.3719
+text = "sair ?"
+align = 1
+uppercase = true
+
+[node name="Sim" type="Button" parent="Opcao"]
+margin_left = 114.511
+margin_top = 170.0
+margin_right = 184.511
+margin_bottom = 220.0
+text = "SIM"
+
+[node name="Nao" type="Button" parent="Opcao"]
+margin_left = 270.943
+margin_top = 170.0
+margin_right = 340.943
+margin_bottom = 220.0
+text = "NÃO"
+[connection signal="area_entered" from="Cama/Area" to="." method="_on_Area_area_entered"]
+[connection signal="area_exited" from="Cama/Area" to="." method="_on_Area_area_exited"]
+[connection signal="area_entered" from="Quadro/Area" to="." method="_on_quadro_area_entered"]
+[connection signal="area_exited" from="Quadro/Area" to="." method="_on_quadro_area_exited"]
+[connection signal="area_entered" from="Corredor/Area" to="." method="_on_corredor_area_entered"]
+[connection signal="area_exited" from="Corredor/Area" to="." method="_on_corredor_area_exited"]
+[connection signal="area_entered" from="Porta/Area" to="." method="_on_porta_area_entered"]
+[connection signal="area_exited" from="Porta/Area" to="." method="_on_porta_area_exited"]
+[connection signal="pressed" from="Opcao/Sim" to="." method="_on_Sim_pressed"]
+[connection signal="pressed" from="Opcao/Nao" to="." method="_on_Nao_pressed"]
